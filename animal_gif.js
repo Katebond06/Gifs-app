@@ -47,17 +47,17 @@ function displayGif() {
       animalDiv.append(p);
 
       var animalImage = $("<img>");
-      animalImage.attr("src", results[i].images.fixed_height_small.url);
-      animalImage.attr("data-state", "animate");
-      animalImage.attr(
-        "data-still",
-        results[i].images.fixed_height_small_still.url
-      );
-      animalImage.attr(
-        "data-animated",
-        results[i].images.fixed_height_small.url
-      );
+
+      var animated = results[i].images.fixed_height_small.url;
+      var still = results[i].images.fixed_height_small_still.url;
+
+      animalImage.attr("src", still);
+      animalImage.attr("data-state", "still");
+      animalImage.attr("data-still", still);
+      animalImage.attr("data-animated", animated);
+
       $(animalImage).addClass("gif");
+
       animalDiv.append(animalImage);
 
       $("#gifs-appear-here").prepend(animalDiv);
@@ -98,7 +98,7 @@ renderButtons();
 $(document).on("click", ".gif", function() {
   var state = $(this).attr("data-state");
   if (state === "still") {
-    $(this).attr("src", $(this).attr("data-animate"));
+    $(this).attr("src", $(this).attr("data-animated"));
     $(this).attr("data-state", "animate");
   } else {
     $(this).attr("src", $(this).attr("data-still"));
